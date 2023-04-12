@@ -79,11 +79,14 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("doneTyping", () => {
-    const roomName = [...socket.rooms][1];
+    // const roomName = [...socket.rooms][1];
 
-    const ids = roomName.split("#");
+    // const ids = roomName.split("#");
 
-    const peerId = ids[0] === socket.id ? ids[1] : ids[0];
+    // const peerId = ids[0] === socket.id ? ids[1] : ids[0];
+    const roomName = Array.from(socket.rooms).find((r) => r !== socket.id);
+    const [id1, id2] = roomName.split("#");
+    const peerId = socket.id === id1 ? id2 : id1;
 
     const peer = notAvailable.find((user) => user.id === peerId);
 
